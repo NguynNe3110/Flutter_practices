@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Lesson1ColumnRow extends StatelessWidget {
+class firstGen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

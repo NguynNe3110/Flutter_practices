@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobilehub/feature/stateless_widget/username_widget.dart';
+import 'package:flutter_mobilehub/feature/stage1/stateless_widget/username_widget.dart';
 
 class Screen_stateless_widget extends StatelessWidget {
 

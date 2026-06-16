@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobilehub/feature/stateFulWidget/screenCounterChat.dart';
 
 // 1. CLASS VỎ TIVI (StatefulWidget)
 class ProductCardWidget extends StatefulWidget {

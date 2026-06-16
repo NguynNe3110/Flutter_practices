@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import '../models/init_data.dart';
-import '../models/lesson.dart';
+import '../../../core/models/lesson.dart';
+import 'list_lessontest.dart';
 
-class HomeScreen extends StatelessWidget {
+class TestScreen extends StatelessWidget {
   // Lấy danh sách từ AppData
-  final List<Lesson> lessons = AppData.lessons;
+  final List<Lesson> lessons = listLessonInTest;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFFE4FFE8),
-        elevation: 0,
+        backgroundColor: Color(0xFFE4FFFD),
+        elevation: 3,
         title: Row(
           children: [
-            Icon(Icons.school, color: Colors.black87),
+            Icon(Icons.eighteen_up_rating_outlined, color: Colors.black87),
             SizedBox(width: 8),
             Text(
-              'Hub Học Flutter',
+              'List In Folder Test',
               style: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,
@@ -69,9 +69,9 @@ class HomeScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                    color: Color(0xFFBBE1FF),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all( color: Color(0xFF39AAFF))
+                  color: Color(0xFFBBE1FF),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all( color: Color(0xFF39AAFF))
                 ),
               ),
               SizedBox(width: 16),

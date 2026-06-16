@@ -31,18 +31,18 @@ class TestScreen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: lessons.isEmpty
             ? Center(
-          child: Text(
-            'Chưa có bài học nào',
-            style: TextStyle(color: Colors.grey),
-          ),
-        )
+                child: Text(
+                  'Chưa có bài học nào',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              )
             : ListView.builder(
-          itemCount: lessons.length,
-          itemBuilder: (context, index) {
-            final lesson = lessons[index];
-            return _buildLessonCard(context, lesson);
-          },
-        ),
+                itemCount: lessons.length,
+                itemBuilder: (context, index) {
+                  final lesson = lessons[index];
+                  return _buildLessonCard(context, lesson);
+                },
+              ),
       ),
     );
   }
@@ -53,14 +53,12 @@ class TestScreen extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
-        onTap: lesson.screen != null
-            ? () {
+        onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => lesson.screen),
           );
-        }
-            : null,
+        },
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Row(
@@ -71,7 +69,7 @@ class TestScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Color(0xFFBBE1FF),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all( color: Color(0xFF39AAFF))
+                  border: Border.all(color: Color(0xFF39AAFF)),
                 ),
               ),
               SizedBox(width: 16),
@@ -91,20 +89,13 @@ class TestScreen extends StatelessWidget {
                     SizedBox(height: 4),
                     Text(
                       lesson.description,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
                     ),
                   ],
                 ),
               ),
               // Mũi tên
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-                color: Colors.grey[400],
-              ),
+              Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey[400]),
             ],
           ),
         ),

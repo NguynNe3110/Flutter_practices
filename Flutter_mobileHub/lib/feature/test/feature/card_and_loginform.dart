@@ -22,10 +22,15 @@ class _CardAndLoginFormScreen extends State<CardAndLoginFormScreen> {
           SizedBox(height: 20),
 
           LoginForm(
-            onNameChanged: (value) => setState( () {
+            onNameChanged: (value) => setState( () { // this is  func arrow
               name = value;
             }),
-            onPasswordChanged: (value) => setState( () => password = value),
+            // onPasswordChanged: (value) { // this is func anonymous
+            //   setState(() {
+            //     password  = value;
+            //   });
+            // },
+            onPasswordChanged: (value) => setState(() => password = value),
           )
         ],
       ),

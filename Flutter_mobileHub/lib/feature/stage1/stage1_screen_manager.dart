@@ -47,7 +47,7 @@ final List<Lesson> listLessonInStage1 = [
   ),
 
   Lesson(
-    title: 'ShoppingScreenSummary Chat',
+    title: 'Matrix card Queen',
     description: 'co ban mo dau',
     screen: MatrixScreenSummary(),
   ),

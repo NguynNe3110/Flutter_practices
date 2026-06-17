@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // 1. Màn hình chính: Quản lý danh sách và Theme
 class MatrixScreenSummary extends StatefulWidget {
   @override
-  _MatrixScreenState createState() => _MatrixScreenState();
+  State<MatrixScreenSummary> createState() => _MatrixScreenState();
 }
 
 class _MatrixScreenState extends State<MatrixScreenSummary> {
@@ -13,7 +13,9 @@ class _MatrixScreenState extends State<MatrixScreenSummary> {
   @override
   Widget build(BuildContext context) {
     print('Building MatrixScreen (Cha)'); // Log để quan sát
-    return MaterialApp(
+    return MaterialApp( // material để tạo ra 1 cái quản lý mới, nó là bố của các bố vì vậy sẽ k có arrow
+      debugShowCheckedModeBanner: false, // tạo ruy băng debug trên góc
+
       home: Scaffold(
         appBar: AppBar(title: Text('Ma Trận Thẻ Bài')),
         body: Column(
@@ -59,7 +61,7 @@ class CardItem extends StatelessWidget {
     Key? key, // Nhận Key từ cha
     required this.id,
     required this.themeColor
-  }) : super(key: key); // 🌟 Phải truyền key lên super() 🌟
+  }) : super(key: key); // 🌟 Phải truyền key lên super() 🌟, lên cha
 
   @override
   Widget build(BuildContext context) {

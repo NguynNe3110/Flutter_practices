@@ -1,7 +1,9 @@
 import 'package:drift/drift.dart';
 
+// ⚠️ Tên class PHẢI là SỐ NHIỀU (Users)
+// Drift sẽ tự sinh ra class User (số ít) ở file users.g.dart
 // 1. Định nghĩa bảng (Tương đương @Entity(tableName = "users"))
-class UsersEntity extends Table {
+class Users extends Table {
   // Tương đương @PrimaryKey(autoGenerate = true) val id: Int
   IntColumn get id => integer().autoIncrement()();
 

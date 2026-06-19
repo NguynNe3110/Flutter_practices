@@ -1,8 +1,24 @@
-import 'package:flutter_mobilehub/feature/stage5/drift_first/data/local/database/drift/daos/user_dao.dart';
+// lib/feature/stage5/drift_first/data/local/datasources/user_local_datasource.dart
+import '../database/drift/daos/user_dao.dart';
+import '../database/drift/tables/users.dart';
 
-class UserLocalDatasource {
+abstract class UserLocalDataSource {
+  Future<void> cacheUser(UsersCompanion user);
+  Stream<List<User>> observeUsers();
+}
+
+class UserLocalDataSourceImpl implements UserLocalDataSource {
   final UserDao _userDao;
-  UserLocalDatasource(this._userDao);
 
+  UserLocalDataSourceImpl(this._userDao);
 
+  @override
+  Future<void> cacheUser(UsersCompanion user) async {
+    await _userDao.into(_userDao.users).insert(user);
+  }
+
+  @override
+  Stream<List<User>> observeUsers() {
+    return _userDao.watchAllUsers();
+  }
 }

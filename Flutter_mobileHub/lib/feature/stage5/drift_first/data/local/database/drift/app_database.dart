@@ -1,4 +1,7 @@
 import 'package:drift/drift.dart';
+import 'package:flutter_mobilehub/feature/stage5/drift_first/data/local/database/drift/tables/users.dart';
+
+import 'daos/user_dao.dart';
 
 part 'app_database.g.dart';
 

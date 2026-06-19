@@ -39,8 +39,14 @@ dependencies:
   flutter_riverpod: ^2.4.9
   riverpod_annotation: ^2.3.3
 
+  #CHAC LA RESTFUL API
   http: ^0.13.4
   intl: ^0.17.0
+
+  drift: ^2.0.0 # Hoặc phiên bản mới nhất
+  sqlite3_flutter_libs: ^0.5.0 # Cung cấp thư viện SQLite native cho Android/iOS
+
+  ###########  ###########  ###########  ###########  ###########  ###########
 #  cupertino_icons: ^1.0.8
 #  #  Điều hướng & Kiến trúc
 #  go_router: ^14.0.0          # Navigation hiện đại, thay thế Navigator.push cũ
@@ -65,7 +71,7 @@ dependencies:
 #  intl: ^0.19.0                # Format ngày/giờ/số tiền
 #  url_launcher: ^6.2.0         # Mở link, gọi điện, email...
 #  permission_handler: ^11.3.0  # Xin quyền camera, location, storage...
-
+  ###########  ###########  ###########  ###########  ###########  ###########  ###########
 
 dev_dependencies:
   flutter_test:
@@ -78,14 +84,20 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
 
+  ###########  ###########  ###########  ###########  ###########  ###########  ###########  ###########
 #  # 🔨 Code Generation (chạy khi cần tạo Model/DI)
-  build_runner: ^2.4.8
+  build_runner: ^2.4.8 # Công cụ chạy generator
   riverpod_generator: ^2.3.9
   custom_lint: ^0.6.0 # (Optional nhưng khuyên dùng để báo lỗi sớm)
+
+  #drift
+  drift_dev: ^2.0.0 # Công cụ sinh code (code generation)
+
 #  json_serializable: ^6.8.0
 #  freezed: ^2.5.0
 #  injectable: ^2.3.0
 #  injectable_generator: ^2.4.0
+  ###########  ###########  ###########  ###########  ###########  ###########  ###########  ###########
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

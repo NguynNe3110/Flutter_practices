@@ -21,7 +21,7 @@ final userRepositoryProvider = AutoDisposeProvider<UserRepository>.internal(
 );
 
 typedef UserRepositoryRef = AutoDisposeProviderRef<UserRepository>;
-String _$homeViewModelHash() => r'b8bb1405557df379671f6c7fc87308715559d64f';
+String _$homeViewModelHash() => r'b8ecb47361aa2374c2d62a96fece1e825f41fdab';
 
 /// See also [HomeViewModel].
 @ProviderFor(HomeViewModel)

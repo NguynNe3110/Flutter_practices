@@ -1,9 +1,7 @@
-// lib/feature/stage5/drift_first/data/repositories/user_repository_impl.dart
-import 'package:flutter_mobilehub/feature/stage5/drift_first/domain/entities/user.dart';
 import 'package:flutter_mobilehub/feature/stage5/drift_first/domain/repositories/user_repository.dart';
 import '../../domain/entities/user_domain.dart';
 import '../local/datasources/user_local_datasource.dart';
-import '../mappers/user_mapper.dart';
+import '../mapper/user_mapper.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserLocalDataSource _localDataSource;
@@ -13,7 +11,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> cacheUser(UserDomain user) async {
-    await _localDataSource.cacheUser(user.toCompanion());
+    await _localDataSource.InsertUser(user.toCompanion());
   }
 
   @override

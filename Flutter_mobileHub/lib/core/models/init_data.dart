@@ -39,7 +39,7 @@ class AppData {
     ),
     Lesson(
       title: 'Folder Stage 5',
-      description: 'Complex Lesson',
+      description: 'Data layer: tầng dữ liệu',
       screen: Stage5Screen(),
     ),
     Lesson(

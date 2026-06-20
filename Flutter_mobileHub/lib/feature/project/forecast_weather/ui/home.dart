@@ -17,6 +17,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final String url_asset = "assets/project_forecast_weather";
+
   Constants myConstants = Constants();
 
   //initiatilization
@@ -131,7 +133,7 @@ class _HomeState extends State<Home> {
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Image.asset(
-                  'assets/profile.png',
+                  '$url_asset/profile.png',
                   width: 40,
                   height: 40,
                 ),
@@ -141,7 +143,7 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/pin.png',
+                    '$url_asset/pin.png',
                     width: 20,
                   ),
                   const SizedBox(
@@ -214,7 +216,7 @@ class _HomeState extends State<Home> {
                     child: imageUrl == ''
                         ? const Text('')
                         : Image.asset(
-                      'assets/' + imageUrl + '.png',
+                      '$url_asset/' + imageUrl + '.png',
                       width: 150,
                     ),
                   ),
@@ -272,18 +274,18 @@ class _HomeState extends State<Home> {
                     text: 'Wind Speed',
                     value: windSpeed,
                     unit: 'km/h',
-                    imageUrl: 'assets/windspeed.png',
+                    imageUrl: '$url_asset/windspeed.png',
                   ),
                   weatherItem(
                       text: 'Humidity',
                       value: humidity,
                       unit: '',
-                      imageUrl: 'assets/humidity.png'),
+                      imageUrl: '$url_asset/humidity.png'),
                   weatherItem(
                     text: 'Wind Speed',
                     value: maxTemp,
                     unit: 'C',
-                    imageUrl: 'assets/max-temp.png',
+                    imageUrl: '$url_asset/max-temp.png',
                   ),
                 ],
               ),
@@ -374,7 +376,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                               Image.asset(
-                                'assets/' + weatherUrl + '.png',
+                                '$url_asset/' + weatherUrl + '.png',
                                 width: 30,
                               ),
                               Text(

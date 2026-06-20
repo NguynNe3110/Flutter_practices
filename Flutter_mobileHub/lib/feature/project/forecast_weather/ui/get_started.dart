@@ -4,6 +4,8 @@ import 'package:flutter_mobilehub/feature/project/forecast_weather/ui/welcome.da
 import '../models/constants.dart';
 
 class GetStarted extends StatelessWidget {
+
+  final String url_asset = "assets/project_forecast_weather";
   const GetStarted({Key? key}) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class GetStarted extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
 
             children: [
-              Image.asset('assets/get-started.png'),
+              Image.asset('$url_asset/get-started.png'),
               const SizedBox(height: 30,),
               GestureDetector(
                 onTap: (){

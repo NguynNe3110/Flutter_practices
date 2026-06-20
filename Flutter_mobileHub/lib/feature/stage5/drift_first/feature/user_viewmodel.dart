@@ -33,8 +33,11 @@ class UserViewModel extends _$UserViewModel {
     await repository.cacheUser(user);
   }
 
-  Future<void> deleteUser(int userId) async {
-    // TODO: Implement trong repository
+  Future<void> deleteUser(int id) async {
+    final repo = ref.read(userRepositoryProvider);
+    final dat = repo.deleteUserById(id);
+    if(dat != -1) print("deleted");
+    else print("ôi chưa xóa được đâu");
   }
 }
 

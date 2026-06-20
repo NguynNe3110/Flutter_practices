@@ -14,12 +14,16 @@ class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
     return into(users).insert(user);
   }
 
+  Future<int> deleteUserById(int id) {
+    return (delete(users)..where((tbl) => tbl.id.equals(id))).go();
+  }
+
   // Map sang Android: @Query("SELECT * FROM users")
   Future<List<User>> getAllUsers() {
     return select(users).get();
   }
 
-  // Map sang Android: Flow<List<User>> (Reactive)
+  // Map sang Android: Flow<List<User>> (observer)
   Stream<List<User>> watchAllUsers() {
     return select(users).watch();
   }

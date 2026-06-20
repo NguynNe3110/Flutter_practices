@@ -7,12 +7,14 @@ class UserLocalDataSource {
   UserLocalDataSource(this._userDao);
 
   // insert
-  @override
   Future<void> InsertUser(UsersCompanion user) async {
     await _userDao.insertUser(user);
   }
 
-  @override
+  Future<int> deleteById(int id) async {
+    return await _userDao.deleteUserById(id);
+  }
+
   Stream<List<User>> observeUsers() {
     return _userDao.watchAllUsers();
   }

@@ -15,6 +15,11 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<int> deleteUserById(int id) {
+    return _localDataSource.deleteById(id);
+  }
+
+  @override
   Stream<List<UserDomain>> observerUsers() {
     // Map từ Stream<User> -> Stream<List<UserDomain>>
     return _localDataSource.observeUsers().map(

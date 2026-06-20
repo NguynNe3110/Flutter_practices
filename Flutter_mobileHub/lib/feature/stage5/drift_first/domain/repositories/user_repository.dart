@@ -3,5 +3,7 @@ import 'package:flutter_mobilehub/feature/stage5/drift_first/domain/entities/use
 abstract class UserRepository {
   Future<void> cacheUser(UserDomain user);
 
+  Future<int> deleteUserById(int id);
+
   Stream<List<UserDomain>> observerUsers();
 }

@@ -4,14 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'users_notifier.dart';
 
 // Map sang Kotlin: @Composable fun UsersScreen() hoặc class UsersFragment : Fragment()
-class UsersScreen extends ConsumerStatefulWidget {
-  const UsersScreen({super.key});
+class UsersScreen1 extends ConsumerStatefulWidget {
+  const UsersScreen1({super.key});
 
   @override
-  ConsumerState<UsersScreen> createState() => _UsersScreenState();
+  ConsumerState<UsersScreen1> createState() => _UsersScreenState();
 }
 
-class _UsersScreenState extends ConsumerState<UsersScreen> {
+class _UsersScreenState extends ConsumerState<UsersScreen1> {
   @override
   void initState() {
     super.initState();

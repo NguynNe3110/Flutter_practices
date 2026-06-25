@@ -3,6 +3,8 @@ import 'package:flutter_mobilehub/feature/stage2/riverpod_first/feature/main/hom
 import '../../../core/models/lesson.dart';
 import 'dio_first/users_screen.dart';
 
+import 'dio_basic_mvvm/user_screen.dart';
+
 final List<Lesson> listLessonInStage5 = [
 
 
@@ -15,9 +17,15 @@ final List<Lesson> listLessonInStage5 = [
 
 
   Lesson(
-    title: 'Bài A: dio_first',
+    title: 'Bài 20_1: dio_first',
     description: 'get user',
-    screen: UsersScreen(),
+    screen: UsersScreen1(),
+  ),
+
+  Lesson(
+    title: 'Bài 20_2: dio_basic_mvvm',
+    description: 'get user',
+    screen: UsersScreen2(),
   ),
 ];
 

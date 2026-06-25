@@ -12,6 +12,7 @@ class UserDto {
   });
 
   // what is it
+  // hàm này là hàm parse trong gson khi map json -> dto, ở đây mình pahri viết thủ công
   factory UserDto.fromJson(Map<String, dynamic> json ) {
     return UserDto(
       id: json['id'],

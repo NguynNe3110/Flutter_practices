@@ -7,6 +7,7 @@ import '../../feature/stage4/stage4_screen_manager.dart';
 import '../../feature/stage5/stage5_screen_manager.dart';
 import '../../feature/stage6/stage6_screen_manager.dart';
 import '../../feature/stage7/stage7_screen_manager.dart';
+import '../../feature/stage8/stage8_screen_manager.dart';
 import '../../feature/test/test_screen_manager.dart';
 import 'lesson.dart';
 
@@ -19,22 +20,22 @@ class AppData {
     ),
     Lesson(
       title: 'Folder Stage 1',
-      description: 'Complex Lesson',
+      description: 'Flutter Foundation (Nền tảng)',
       screen: Stage1Screen(),
     ),
     Lesson(
       title: 'Folder Stage 2',
-      description: 'Complex Lesson',
+      description: 'Flutter State (Quản lý trạng thái)',
       screen: Stage2Screen(),
     ),
     Lesson(
       title: 'Folder Stage 3',
-      description: 'Complex Lesson',
+      description: 'Navigation (Điều hướng)',
       screen: Stage3Screen(),
     ),
     Lesson(
       title: 'Folder Stage 4',
-      description: 'Complex Lesson',
+      description: 'Architecture (Kiến trúc)',
       screen: Stage4Screen(),
     ),
     Lesson(
@@ -44,13 +45,18 @@ class AppData {
     ),
     Lesson(
       title: 'Folder Stage 6',
-      description: 'Complex Lesson',
+      description: 'Local Database (Cơ sở dữ liệu cục bộ)',
       screen: Stage6Screen(),
     ),
     Lesson(
       title: 'Folder Stage 7',
-      description: 'Complex Lesson',
+      description: 'Dependency Injection (Tiêm phụ thuộc)',
       screen: Stage7Screen(),
+    ),
+    Lesson(
+      title: 'Folder Stage 8',
+      description: 'Production Flutter',
+      screen: Stage8Screen(),
     ),
 
 

@@ -17,6 +17,7 @@ part 'user_viewmodel.g.dart';
 //   throw UnimplementedError('Phải được override bởi DI');
 // }
 
+//này thực ra là notifier UserNotifier
 // 2. ViewModel sử dụng AsyncNotifier (cho stream reactive)
 @riverpod
 class UserViewModel extends _$UserViewModel {

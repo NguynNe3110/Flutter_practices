@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobilehub/feature/stage2/riverpod_first/feature/main/home/home_screen.dart';
 import '../../../core/models/lesson.dart';
+import 'drift_first/feature/screen.dart';
 
 final List<Lesson> listLessonInStage6 = [
+  Lesson(
+    title: 'Bài 25: drift_first',
+    description: 'sau',
+    screen: UserListScreen(),
+  ),
 
   // Lesson(
   //   title: 'Bài 1: riverpod',

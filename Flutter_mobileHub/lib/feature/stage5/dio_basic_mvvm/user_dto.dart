@@ -20,6 +20,7 @@ class UserDto {
     );
   }
 
+  // ham mapper
   UserDomain toDomain() {
     return UserDomain(
       id: id,

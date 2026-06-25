@@ -1,19 +1,7 @@
+import 'package:flutter_mobilehub/feature/stage5/dio_first/user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'dio_client.dart';
 import 'get_users_usecase.dart';
 import 'user_state.dart';
-import 'user_remote_datasource.dart';
-import 'user_repository_impl.dart';
-
-// 1. Định nghĩa Provider (Map sang @HiltViewModel + ViewModelFactory)
-// Đây là nơi Riverpod biết cách tạo ra UseCase -> Repo -> DataSource -> Dio
-final getUsersUseCaseProvider = Provider<GetUsersUseCase>((ref) {
-  final dio = DioClient.createDio();
-  final remoteDs = UserRemoteDataSource(dio);
-  final repo = UserRepositoryImpl(remoteDs);
-  return GetUsersUseCase(repo);
-});
 
 // 2. ViewModel (Map sang LoginViewModel.kt)
 class UsersNotifier extends Notifier<UsersState> {

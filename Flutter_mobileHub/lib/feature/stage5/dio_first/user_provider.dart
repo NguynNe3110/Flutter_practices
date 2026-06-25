@@ -7,6 +7,8 @@ import 'user_repository.dart';
 import 'app_provider.dart';
 // 👇 IMPORT TỪ TẦNG CORE
 
+// 1. Định nghĩa Provider (Map sang @HiltViewModel + ViewModelFactory)
+// Đây là nơi Riverpod biết cách tạo ra UseCase -> Repo -> DataSource -> Dio
 
 // 2. DataSource (Dùng lại Dio từ Core - Map sang việc @Inject Dio vào Constructor)
 final userRemoteDataSourceProvider = Provider((ref) {

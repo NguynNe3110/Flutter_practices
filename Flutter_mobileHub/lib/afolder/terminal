@@ -1,0 +1,20 @@
+sau khi thêm thư viện vào file pubspec.yaml thì phải build lại project
+> flutter pub get
+
+----
+
+chạy để generate code file .g.dart
+> flutter pub run build_runner build --delete-conflicting-outputs
+Hoặc
+> dart run build_runner build --delete-conflicting-outputs
+
+----
+
+trường hợp bị lỗi thư viện cần xóa đi và tải lại
+> flutter clean
+flutter pub get
+
+----
+
+lệnh để xóa toàn bộ file .g.dart
+> Get-ChildItem -Path . -Filter "*.g.dart" -Recurse | Remove-Item -Force

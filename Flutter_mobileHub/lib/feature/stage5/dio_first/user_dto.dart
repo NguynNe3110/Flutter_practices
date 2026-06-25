@@ -1,4 +1,4 @@
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_entity.dart';
+import 'package:flutter_mobilehub/feature/stage5/dio_first/user_domain.dart';
 
 class UserDto {
   final int id;
@@ -17,8 +17,8 @@ class UserDto {
   }
 
   // Map sang Kotlin: fun toEntity(): UserEntity
-  UserEntity toEntity() {
-    return UserEntity(
+  UserDomain toDomain() {
+    return UserDomain(
         id: id,
         name: name,
         email: email);

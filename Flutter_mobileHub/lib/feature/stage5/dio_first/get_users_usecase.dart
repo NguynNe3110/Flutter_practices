@@ -1,5 +1,5 @@
 import 'package:flutter_mobilehub/feature/stage5/dio_first/user_repository.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_entity.dart';
+import 'package:flutter_mobilehub/feature/stage5/dio_first/user_domain.dart';
 
 // Map sang Kotlin: class GetUsersUseCase @Inject constructor(...)
 class GetUsersUseCase {
@@ -8,7 +8,7 @@ class GetUsersUseCase {
   GetUsersUseCase(this._repository);
 
   // Trong Kotlin bạn dùng operator fun invoke(), trong Dart gọi trực tiếp hàm call()
-  Future<List<UserEntity>> call() async {
+  Future<List<UserDomain>> call() async {
     return await _repository.getUsers();
   }
 }

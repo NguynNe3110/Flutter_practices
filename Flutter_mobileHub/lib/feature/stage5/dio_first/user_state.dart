@@ -1,15 +1,15 @@
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_entity.dart';
+import 'package:flutter_mobilehub/feature/stage5/dio_first/user_domain.dart';
 
 // Map sang Kotlin: data class UsersUiState(val isLoading: Boolean, val users: List<UserEntity>?, val error: String?)
 class UsersState {
   final bool isLoading;
-  final List<UserEntity>? users;
+  final List<UserDomain>? users;
   final String? error;
 
   const UsersState({this.isLoading = false, this.users, this.error});
 
   UsersState copyWith({
-    bool? isLoading, List<UserEntity>? users, String? error
+    bool? isLoading, List<UserDomain>? users, String? error
   }) {
     return UsersState(
       isLoading: isLoading ?? this.isLoading,

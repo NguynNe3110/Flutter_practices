@@ -1,6 +1,6 @@
 import 'package:flutter_mobilehub/feature/stage5/dio_first/user_remote_datasource.dart';
 import 'package:flutter_mobilehub/feature/stage5/dio_first/user_repository.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_entity.dart';
+import 'package:flutter_mobilehub/feature/stage5/dio_first/user_domain.dart';
 
 // Map sang Kotlin: class UserRepositoryImpl @Inject constructor(...) : UserRepository
 class UserRepositoryImpl implements UserRepository {
@@ -9,10 +9,10 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<List<UserEntity>> getUsers() async {
+  Future<List<UserDomain>> getUsers() async {
     // 1. Gọi API lấy DTO
     final dtos = await _remoteDataSource.getUsers();
     // 2. Map DTO sang Entity (Domain không được biết DTO)
-    return dtos.map((dto) => dto.toEntity()).toList();
+    return dtos.map((dto) => dto.toDomain()).toList();
   }
 }

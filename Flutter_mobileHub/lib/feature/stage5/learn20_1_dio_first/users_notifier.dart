@@ -1,4 +1,4 @@
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_provider.dart';
+import 'user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'get_users_usecase.dart';
 import 'user_state.dart';

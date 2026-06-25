@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_basic_mvvm/user_provider.dart';
+import 'user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 

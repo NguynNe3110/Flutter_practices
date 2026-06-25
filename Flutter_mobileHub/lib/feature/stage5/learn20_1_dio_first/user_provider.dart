@@ -1,4 +1,4 @@
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_remote_datasource.dart';
+import 'user_remote_datasource.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'get_users_usecase.dart';

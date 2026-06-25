@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_basic_mvvm/user_api.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_basic_mvvm/user_dto.dart';
+import 'user_api.dart';
+import 'user_dto.dart';
 
 // nen bắt lloxi ngay ở layer này
 class UserRemoteDataSource {

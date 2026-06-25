@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_dto.dart';
+import 'user_dto.dart';
 
 class UserRemoteDataSource {
   final Dio _dio;

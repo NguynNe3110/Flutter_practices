@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobilehub/feature/stage2/riverpod_first/feature/main/home/home_screen.dart';
 import '../../../core/models/lesson.dart';
-import 'dio_first/users_screen.dart';
-
-import 'dio_basic_mvvm/user_screen.dart';
+import 'learn20_1_dio_first/users_screen.dart';
+import 'learn20_2_dio_basic_mvvm/user_screen.dart';
 
 final List<Lesson> listLessonInStage5 = [
 
-
-
-  // Lesson(
-  //   title: 'Bài 2: drift_first',
-  //   description: 'sau',
-  //   screen: UserListScreen(),
-  // ),
-
-
   Lesson(
-    title: 'Bài 20_1: dio_first',
+    title: 'Bài 20_1: learn20_1_dio_first',
     description: 'get user',
     screen: UsersScreen1(),
   ),
 
   Lesson(
-    title: 'Bài 20_2: dio_basic_mvvm',
+    title: 'Bài 20_2: learn20_2_dio_basic_mvvm',
     description: 'get user',
     screen: UsersScreen2(),
   ),

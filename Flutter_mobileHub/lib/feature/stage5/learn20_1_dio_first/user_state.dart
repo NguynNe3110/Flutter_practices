@@ -1,4 +1,4 @@
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_domain.dart';
+import 'user_domain.dart';
 
 // Map sang Kotlin: data class UsersUiState(val isLoading: Boolean, val users: List<UserEntity>?, val error: String?)
 class UsersState {

@@ -1,7 +1,7 @@
 
 
 import 'package:dio/dio.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_basic_mvvm/dio_client.dart';
+import 'dio_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 

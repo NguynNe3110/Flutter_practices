@@ -2,8 +2,8 @@
 
 
 
-import 'package:flutter_mobilehub/feature/stage5/dio_basic_mvvm/user_notifier.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_basic_mvvm/user_remote_data_source.dart';
+import 'user_notifier.dart';
+import 'user_remote_data_source.dart';
 
 import 'app_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

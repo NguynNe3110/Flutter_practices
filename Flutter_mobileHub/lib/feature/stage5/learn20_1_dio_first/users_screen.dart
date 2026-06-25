@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_first/user_state.dart';
+import 'user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'users_notifier.dart';
 

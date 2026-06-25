@@ -1,7 +1,7 @@
 
 import 'user_dto.dart';
 import 'user_remote_data_source.dart';
-import 'package:flutter_mobilehub/feature/stage5/dio_basic_mvvm/user_repository.dart';
+import 'user_repository.dart';
 import 'user_domain.dart';
 
 class UserRepositoryImpl extends UserRepository {

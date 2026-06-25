@@ -31,7 +31,7 @@ class Stage7Screen extends StatelessWidget {
             Icon(Icons.eighteen_up_rating_outlined, color: Colors.black87),
             SizedBox(width: 8),
             Text(
-              'List In Folder Stage2',
+              'List In Folder Stage7',
               style: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,

@@ -18,3 +18,8 @@ flutter pub get
 
 lệnh để xóa toàn bộ file .g.dart
 > Get-ChildItem -Path . -Filter "*.g.dart" -Recurse | Remove-Item -Force
+
+----
+
+muốn thêm 1 thư viện cụ thể (tự động cài phiên bản) (vd: thư viện go_route)
+> flutter pub add go_router

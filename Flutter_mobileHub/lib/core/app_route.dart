@@ -1,3 +1,4 @@
+import 'package:flutter_mobilehub/feature/stage5/stage5_route.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_mobilehub/core/screens/home_screen.dart';
 import 'package:flutter_mobilehub/feature/project/forecast_weather/ui/get_started.dart';
@@ -14,9 +15,6 @@ import 'package:flutter_mobilehub/feature/stage2/riverpod_first/feature/main/hom
 import 'package:flutter_mobilehub/feature/stage2/stage2_screen_manager.dart';
 import 'package:flutter_mobilehub/feature/stage3/stage3_screen_manager.dart';
 import 'package:flutter_mobilehub/feature/stage4/stage4_screen_manager.dart';
-import 'package:flutter_mobilehub/feature/stage5/stage5_screen_manager.dart';
-import 'package:flutter_mobilehub/feature/stage5/learn20_1_dio_first/users_screen.dart';
-import 'package:flutter_mobilehub/feature/stage5/learn20_2_dio_basic_mvvm/user_screen.dart';
 import 'package:flutter_mobilehub/feature/stage6/stage6_screen_manager.dart';
 import 'package:flutter_mobilehub/feature/stage6/drift_first/feature/screen.dart';
 import 'package:flutter_mobilehub/feature/stage7/stage7_screen_manager.dart';
@@ -25,9 +23,21 @@ import 'package:flutter_mobilehub/feature/test/test_screen_manager.dart';
 import 'package:flutter_mobilehub/feature/test/feature/card_and_loginform.dart';
 
 final GoRouter appRouter = GoRouter(
+  //initialLocation: màn hình đầu tiên của navGraph này
   initialLocation: '/',
+
+  //route : danh sach cac  distinations cap cao nhat
   routes: [
-    GoRoute(path: '/', builder: (context, state) => HomeScreen()),
+    GoRoute(
+      //path : chuoi url dinh danh cho man hinh
+      path: '/',
+
+      //builder: ham duoc goi de ve ra widget khi path duoc match
+      // context : dufng de lay them, kich thuoc man hinh...
+      //state: chua thong tin truyen den (path parameter, extra data, query params)
+      builder: (context, state) => HomeScreen(),
+    ),
+
     GoRoute(
       path: '/project',
       builder: (context, state) => ProjectScreen(),
@@ -38,6 +48,7 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+
     GoRoute(
       path: '/stage1',
       builder: (context, state) => Stage1Screen(),
@@ -47,6 +58,9 @@ final GoRouter appRouter = GoRouter(
         GoRoute(
           path: 'stateless-widget',
           builder: (context, state) => Screen_stateless_widget(),
+          routes: [
+            //SOMETHING
+          ],
         ),
         GoRoute(
           path: 'stateful-widget-queen',
@@ -66,6 +80,7 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+
     GoRoute(
       path: '/stage2',
       builder: (context, state) => Stage2Screen(),
@@ -76,22 +91,27 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+
     GoRoute(path: '/stage3', builder: (context, state) => Stage3Screen()),
+
     GoRoute(path: '/stage4', builder: (context, state) => Stage4Screen()),
-    GoRoute(
-      path: '/stage5',
-      builder: (context, state) => Stage5Screen(),
-      routes: [
-        GoRoute(
-          path: 'learn20-1-dio-first',
-          builder: (context, state) => UsersScreen1(),
-        ),
-        GoRoute(
-          path: 'learn20-2-dio-basic-mvvm',
-          builder: (context, state) => UsersScreen2(),
-        ),
-      ],
-    ),
+
+    ...Stage5Route.stage5Route,
+
+    // GoRoute(
+    //   path: '/stage5',
+    //   builder: (context, state) => Stage5Screen(),
+    //   routes: [
+    //     GoRoute(
+    //       path: 'learn20-1-dio-first',
+    //       builder: (context, state) => UsersScreen1(),
+    //     ),
+    //     GoRoute(
+    //       path: 'learn20-2-dio-basic-mvvm',
+    //       builder: (context, state) => UsersScreen2(),
+    //     ),
+    //   ],
+    // ),
     GoRoute(
       path: '/stage6',
       builder: (context, state) => Stage6Screen(),
@@ -102,8 +122,11 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+
     GoRoute(path: '/stage7', builder: (context, state) => Stage7Screen()),
+
     GoRoute(path: '/stage8', builder: (context, state) => Stage8Screen()),
+
     GoRoute(
       path: '/test',
       builder: (context, state) => TestScreen(),

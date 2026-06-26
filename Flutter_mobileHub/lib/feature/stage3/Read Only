@@ -1,0 +1,206 @@
+Bước 1: Cài đặt Package
+    flutter pub add go_router
+----
+
+Bước 2: Định nghĩa các Route cơ bản (Tư duy như viết nav_graph.xml hoặc NavHost)
+Tạo file core/router/app_router.dart:
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+    // 1. Định nghĩa tên route (Tránh dùng string cứng, giống常量 trong Kotlin)
+    class AppRoutes {
+      static const String login = '/login';
+      static const String home = '/home';
+      static const String detail = '/detail';
+    }
+
+    // 2. Cấu hình GoRouter
+    final GoRouter appRouter = GoRouter(
+      initialLocation: AppRoutes.login,
+      routes: [
+        // Route Login
+        GoRoute(
+          path: AppRoutes.login,
+          builder: (context, state) => const LoginScreen(),
+        ),
+
+        // Route Home
+        GoRoute(
+          path: AppRoutes.home,
+          builder: (context, state) => const HomeScreen(),
+          // Route con (Nested Route) - Giống sub-graph trong Android
+          routes: [
+            GoRoute(
+              path: 'detail/:id', // :id là path parameter (giống SafeArgs)
+              builder: (context, state) {
+                final id = state.pathParameters['id']!;
+                // Lấy object phức tạp truyền qua extra (giống Parcelable/Serializable)
+                final user = state.extra as User?;
+                return DetailScreen(id: id, user: user);
+              },
+            ),
+          ],
+        ),
+      ],
+LOGIC CHO SAVE TOKEN
+      // 3. Redirect Logic (Rất quan trọng cho Auth Flow)
+      // Tương tự việc check token trong Interceptor hoặc NavigationUI
+      redirect: (context, state) {
+        final isLoggedIn = AuthService.instance.isLoggedIn; // Giả sử có class check login
+        final isOnLoginPage = state.matchedLocation == AppRoutes.login;
+
+        if (!isLoggedIn && !isOnLoginPage) return AppRoutes.login;
+        if (isLoggedIn && isOnLoginPage) return AppRoutes.home;
+
+        return null; // Không redirect
+      },
+    );
+----
+
+
+Bước 3: Khởi tạo trong app.dart (Tương tự MainActivity.kt set NavHost)
+    import 'package:flutter/material.dart';
+    import 'package:go_router/go_router.dart';
+    import 'core/router/app_router.dart';
+
+    class MyApp extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return MaterialApp.router(
+          title: 'Flutter MVVM',
+          theme: ThemeData(primarySwatch: Colors.blue),
+          routerConfig: appRouter, // 🌟 Gán GoRouter vào đây (Thay cho setNavController)
+        );
+      }
+    }
+----
+
+
+Bước 4: Thực hiện các thao tác Điều hướng (Navigation Actions)
+Trong bất kỳ Widget nào (hoặc trong ViewModel nếu bạn inject GoRouter), bạn dùng context:
+// 1. PUSH (Giống navController.navigate)
+// Đẩy màn Detail vào stack. Màn Home vẫn còn đó.
+context.push('${AppRoutes.home}/detail/123', extra: myUserObject);
+
+// 2. POP (Giống navController.popBackStack)
+// Quay lại màn hình trước đó (Home)
+context.pop();
+
+// 3. GO (Giống Intent.FLAG_ACTIVITY_NEW_TASK | CLEAR_TASK)
+// XÓA SẠCH STACK. Dùng khi Login thành công -> sang Home (không cho phép bấm Back để quay lại Login)
+context.go(AppRoutes.home);
+
+// 4. REPLACE (Giống navigate + popUpTo(current))
+// Thay thế màn hiện tại bằng màn mới
+context.replace(AppRoutes.home);
+
+----
+----
+4. 💎 NÂNG CAO: Bottom Navigation giữ State (StatefulShellRoute)
+Vấn đề trong Android: Khi dùng BottomNav với Navigation Component, bạn phải config navGraphViewModels hoặc saveStateHandle rất cực khổ để giữ state của từng tab.
+Giải pháp trong Flutter: StatefulShellRoute giải quyết việc này chỉ trong 1 dòng code.
+Cập nhật app_router.dart:
+
+    final GoRouter appRouter = GoRouter(
+      initialLocation: '/home/feed',
+      routes: [
+        StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) {
+            // Trả về Widget chứa BottomNavigationBar
+            return MainShell(navigationShell: navigationShell);
+          },
+          branches: [
+            // Branch 1: Feed
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/home/feed',
+                  builder: (context, state) => const FeedScreen(),
+                ),
+              ],
+            ),
+            // Branch 2: Profile
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/home/profile',
+                  builder: (context, state) => const ProfileScreen(),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+----
+
+Widget MainShell (Tương tự MainActivity chứa BottomNav):
+
+    class MainShell extends StatelessWidget {
+      final StatefulNavigationShell navigationShell;
+
+      const MainShell({required this.navigationShell});
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: navigationShell, // 🌟 Tự động render tab đang active và GIỮ NGUYÊN STATE
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: navigationShell.currentIndex,
+            onTap: (index) {
+              // Chuyển branch mà không cần push/pop
+              navigationShell.goBranch(
+                index,
+                initialLocation: index == navigationShell.currentIndex,
+              );
+            },
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Feed'),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+            ],
+          ),
+        );
+      }
+    }
+----
+
+5. 🧠 GÓC NHÌN MVVM & CLEAN ARCHITECTURE
+Trong Android, bạn thường gọi navController trực tiếp từ Compose/Fragment.
+Trong Flutter MVVM chuẩn, ViewModel KHÔNG NÊN biết về UI/Context. Vậy điều hướng thế nào?
+Cách 1: Dùng Callback / Event (Khuyên dùng cho Clean Architecture)
+ViewModel chỉ bắn ra Event, Widget lắng nghe và gọi context.push().
+
+    // login_event.dart
+    sealed class LoginEvent {}
+    class LoginSuccess extends LoginEvent {
+      final User user;
+      LoginSuccess(this.user);
+    }
+
+    // login_viewmodel.dart
+    class LoginViewModel extends ChangeNotifier {
+      // ...
+      void login() {
+        // gọi API...
+        if (success) {
+          // Bắn event, KHÔNG gọi context.go() ở đây
+          _eventSink.add(LoginSuccess(user));
+        }
+      }
+    }
+
+    // login_screen.dart (Widget)
+    // Lắng nghe event và điều hướng
+    ref.listen(loginViewModelProvider, (previous, next) {
+      if (next is LoginSuccess) {
+        context.go(AppRoutes.home); // 🌟 UI tự quyết định việc navigate
+      }
+    });
+----
+
+Cách 2: Inject GoRouter vào ViewModel (Nhanh hơn, nhưng hơi lệch Clean Arch)
+Dùng GetIt/Riverpod inject GoRouter vào ViewModel.
+
+    // Trong ViewModel
+    final router = ref.read(goRouterProvider);
+    router.go(AppRoutes.home);

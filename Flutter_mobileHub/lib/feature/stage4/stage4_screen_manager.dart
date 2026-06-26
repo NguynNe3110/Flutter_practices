@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobilehub/feature/stage2/riverpod_first/feature/main/home/home_screen.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/models/lesson.dart';
 
 final List<Lesson> listLessonInStage4 = [
-
   // Lesson(
   //   title: 'Bài 1: riverpod',
   //   description: 'sau',
   //   screen: HomeScreenst2(),
   // ),
-
-
-
 ];
 
-
 class Stage4Screen extends StatelessWidget {
+  Stage4Screen({super.key});
+
   // Lấy danh sách từ AppData
   final List<Lesson> lessons = listLessonInStage4;
 
@@ -44,18 +41,18 @@ class Stage4Screen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: lessons.isEmpty
             ? Center(
-          child: Text(
-            'Chưa có bài học nào',
-            style: TextStyle(color: Colors.grey),
-          ),
-        )
+                child: Text(
+                  'Chưa có bài học nào',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              )
             : ListView.builder(
-          itemCount: lessons.length,
-          itemBuilder: (context, index) {
-            final lesson = lessons[index];
-            return _buildLessonCard(context, lesson);
-          },
-        ),
+                itemCount: lessons.length,
+                itemBuilder: (context, index) {
+                  final lesson = lessons[index];
+                  return _buildLessonCard(context, lesson);
+                },
+              ),
       ),
     );
   }
@@ -67,10 +64,7 @@ class Stage4Screen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => lesson.screen),
-          );
+          context.push('/stage4/${lesson.routePath}');
         },
         child: Padding(
           padding: EdgeInsets.all(20),

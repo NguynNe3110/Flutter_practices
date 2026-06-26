@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_mobilehub/feature/stage1/stateFulWidget/screenCounterChat.dart';
 import 'package:flutter_mobilehub/feature/stage1/stateFulWidget/screenProductCardQueen.dart';
 import 'package:flutter_mobilehub/feature/stage1/stateless_widget/screen.dart';
@@ -9,59 +10,59 @@ import 'firstGen/dart_basic.dart';
 import 'firstGen/first_gen.dart';
 
 final List<Lesson> listLessonInStage1 = [
-
   Lesson(
     title: 'Bài *: Column / Row / Box',
     description: 'Layout cơ bản trong Flutter',
+    routePath: 'first-gen',
     screen: firstGen(),
   ),
 
   Lesson(
     title: 'Bài *: dartBasic',
     description: 'basic, bien, ham, string, mang',
+    routePath: 'dart-basic',
     screen: Dartbasic(),
   ),
 
   Lesson(
     title: 'Bài 1: stateless widget',
     description: 'co ban mo dau',
+    routePath: 'stateless-widget',
     screen: Screen_stateless_widget(),
   ),
 
   Lesson(
     title: 'Bài 2: stateful widget Queen',
     description: 'co ban mo dau',
+    routePath: 'stateful-widget-queen',
     screen: ProductCardWidget(),
   ),
 
   Lesson(
     title: 'Bài 2_1: stateful widge Chat',
     description: 'co ban mo dau',
+    routePath: 'stateful-widget-chat',
     screen: CounterScreen(),
   ),
 
   Lesson(
     title: 'ShoppingScreenSummary Chat',
     description: 'co ban mo dau',
+    routePath: 'shopping-summary-chat',
     screen: ShoppingScreenSummary(),
   ),
 
   Lesson(
     title: 'Matrix card Queen',
     description: 'co ban mo dau',
+    routePath: 'matrix-card-queen',
     screen: MatrixScreenSummary(),
   ),
-
-
-
-
-
-
-
 ];
 
-
 class Stage1Screen extends StatelessWidget {
+  Stage1Screen({super.key});
+
   // Lấy danh sách từ AppData
   final List<Lesson> lessons = listLessonInStage1;
 
@@ -90,18 +91,18 @@ class Stage1Screen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: lessons.isEmpty
             ? Center(
-          child: Text(
-            'Chưa có bài học nào',
-            style: TextStyle(color: Colors.grey),
-          ),
-        )
+                child: Text(
+                  'Chưa có bài học nào',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              )
             : ListView.builder(
-          itemCount: lessons.length,
-          itemBuilder: (context, index) {
-            final lesson = lessons[index];
-            return _buildLessonCard(context, lesson);
-          },
-        ),
+                itemCount: lessons.length,
+                itemBuilder: (context, index) {
+                  final lesson = lessons[index];
+                  return _buildLessonCard(context, lesson);
+                },
+              ),
       ),
     );
   }
@@ -113,10 +114,7 @@ class Stage1Screen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => lesson.screen),
-          );
+          context.push('/stage1/${lesson.routePath}');
         },
         child: Padding(
           padding: EdgeInsets.all(20),

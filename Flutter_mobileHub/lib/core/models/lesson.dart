@@ -1,13 +1,16 @@
+// File: core/models/lesson.dart
 import 'package:flutter/material.dart';
 
 class Lesson {
   final String title;
   final String description;
-  final Widget screen; // Màn hình tương ứng
+  final String routePath;
+  final Widget? screen; // 🌟 Cho phép null (vì HomeScreen không cần)
 
   Lesson({
     required this.title,
     required this.description,
-    required this.screen,
+    required this.routePath,
+    this.screen,
   });
 }

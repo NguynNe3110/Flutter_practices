@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/models/lesson.dart';
 import 'feature/card_and_loginform.dart';
 
@@ -6,12 +7,14 @@ final List<Lesson> listLessonInTest = [
   Lesson(
     title: 'Card and loginForm Queen',
     description: 'Layout cơ bản trong Flutter',
+    routePath: 'card-and-login-form',
     screen: CardAndLoginFormScreen(),
   ),
 ];
 
-
 class TestScreen extends StatelessWidget {
+  TestScreen({super.key});
+
   // Lấy danh sách từ AppData
   final List<Lesson> lessons = listLessonInTest;
 
@@ -63,10 +66,7 @@ class TestScreen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => lesson.screen),
-          );
+          context.push('/test/${lesson.routePath}');
         },
         child: Padding(
           padding: EdgeInsets.all(20),

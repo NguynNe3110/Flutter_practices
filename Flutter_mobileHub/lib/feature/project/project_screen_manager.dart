@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import '../../../core/models/lesson.dart';
 import 'forecast_weather/ui/get_started.dart';
+import 'package:go_router/go_router.dart';
 
 final List<Lesson> listLessonInProject = [
-
   Lesson(
     title: 'Forecast weather',
     description: 'sau',
+    routePath: 'forecast-weather', // 🌟 Đường dẫn con (KHÔNG có dấu / ở đầu)
     screen: GetStarted(),
   ),
 
-
-
+  // Thêm bài tập khác tương tự...
 ];
 
-
 class ProjectScreen extends StatelessWidget {
+  ProjectScreen({super.key});
+
   // Lấy danh sách từ AppData
   final List<Lesson> lessons = listLessonInProject;
 
@@ -44,18 +45,18 @@ class ProjectScreen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: lessons.isEmpty
             ? Center(
-          child: Text(
-            'Chưa có bài học nào',
-            style: TextStyle(color: Colors.grey),
-          ),
-        )
+                child: Text(
+                  'Chưa có bài học nào',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              )
             : ListView.builder(
-          itemCount: lessons.length,
-          itemBuilder: (context, index) {
-            final lesson = lessons[index];
-            return _buildLessonCard(context, lesson);
-          },
-        ),
+                itemCount: lessons.length,
+                itemBuilder: (context, index) {
+                  final lesson = lessons[index];
+                  return _buildLessonCard(context, lesson);
+                },
+              ),
       ),
     );
   }
@@ -67,10 +68,7 @@ class ProjectScreen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => lesson.screen),
-          );
+          context.push('/project/${lesson.routePath}');
         },
         child: Padding(
           padding: EdgeInsets.all(20),

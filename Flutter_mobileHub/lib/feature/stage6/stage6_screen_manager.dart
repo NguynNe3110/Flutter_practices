@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/models/lesson.dart';
 import 'drift_first/feature/screen.dart';
 
@@ -6,6 +7,7 @@ final List<Lesson> listLessonInStage6 = [
   Lesson(
     title: 'Bài 25: drift_first',
     description: 'sau',
+    routePath: 'drift-first',
     screen: UserListScreen(),
   ),
 
@@ -14,13 +16,11 @@ final List<Lesson> listLessonInStage6 = [
   //   description: 'sau',
   //   screen: HomeScreenst2(),
   // ),
-
-
-
 ];
 
-
 class Stage6Screen extends StatelessWidget {
+  Stage6Screen({super.key});
+
   // Lấy danh sách từ AppData
   final List<Lesson> lessons = listLessonInStage6;
 
@@ -49,18 +49,18 @@ class Stage6Screen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: lessons.isEmpty
             ? Center(
-          child: Text(
-            'Chưa có bài học nào',
-            style: TextStyle(color: Colors.grey),
-          ),
-        )
+                child: Text(
+                  'Chưa có bài học nào',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              )
             : ListView.builder(
-          itemCount: lessons.length,
-          itemBuilder: (context, index) {
-            final lesson = lessons[index];
-            return _buildLessonCard(context, lesson);
-          },
-        ),
+                itemCount: lessons.length,
+                itemBuilder: (context, index) {
+                  final lesson = lessons[index];
+                  return _buildLessonCard(context, lesson);
+                },
+              ),
       ),
     );
   }
@@ -72,10 +72,7 @@ class Stage6Screen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => lesson.screen),
-          );
+          context.push('/stage6/${lesson.routePath}');
         },
         child: Padding(
           padding: EdgeInsets.all(20),

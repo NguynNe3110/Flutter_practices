@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/init_data.dart';
 import '../models/lesson.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
+
   // Lấy danh sách từ AppData
   final List<Lesson> lessons = AppData.lessons;
 
@@ -54,10 +57,7 @@ class HomeScreen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => lesson.screen),
-          );
+          context.push(lesson.routePath);
         },
         child: Padding(
           padding: EdgeInsets.all(20),

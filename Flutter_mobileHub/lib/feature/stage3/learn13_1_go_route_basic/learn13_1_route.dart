@@ -8,13 +8,13 @@ import 'package:path/path.dart';
 import 'screen2.dart';
 
 class Learn13_1Route {
-  static const String screen1 = '/screen1';
-  static const String screen2 = '/screen2';
-  static const String screen3 = '/screen3';
-}
+  static const String screen1 = 'screen1';
+  static const String screen2 = 'screen2';
+  static const String screen3 = 'screen3';
+
 
 //cau hinh route cho man hinh
-final List<RouteBase> learn13_1Routes = [
+static final List<RouteBase> learn13_1Routes = [
   GoRoute(
     path: Learn13_1Route.screen1,
     builder: (context, state) => const Screen1(),
@@ -38,3 +38,4 @@ final List<RouteBase> learn13_1Routes = [
     }
   )
 ];
+}

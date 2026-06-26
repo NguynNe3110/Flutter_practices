@@ -21,7 +21,7 @@ class Screen3 extends StatelessWidget {
                 // go(): Điều hướng và THAY THẾ toàn bộ Stack hiện tại.
                 // Tương đương Intent với FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK
                 // Nếu dùng context.push('/screen1') thì Stack sẽ là: 1 -> 2 -> 3 -> 1 (bị lặp)
-                context.go('/screen1');
+                context.go('/stage3/screen1');
               },
               child: const Text('Quay về Screen 1 (Reset Stack)'),
             ),

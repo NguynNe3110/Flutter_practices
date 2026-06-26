@@ -14,7 +14,7 @@ class Screen1 extends StatelessWidget {
             // push: Thêm Screen 2 vào Stack (Giống navigate() trong Android)
             // extra: Truyền dữ liệu (Giống putExtra / Bundle)
             context.push(
-              '/screen2',
+              '/stage3/screen2',
               extra: 'Xin chào từ Screen 1! (String)',
             );
           },

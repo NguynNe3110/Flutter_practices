@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/models/lesson.dart';
+import 'learn13_1_go_route_basic/screen1.dart';
 
 final List<Lesson> listLessonInStage3 = [
-  // Lesson(
-  //   title: 'Bài 1: riverpod',
-  //   description: 'sau',
-  //   screen: HomeScreenst2(),
-  // ),
+  Lesson(
+    title: 'Bài 13_1: go route basic',
+    description: 'sau',
+    routePath: 'screen1',
+    screen: Screen1(),
+  ),
 ];
 
 class Stage3Screen extends StatelessWidget {

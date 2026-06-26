@@ -19,7 +19,7 @@ class Screen2 extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Truyền số nguyên sang Screen 3
-                context.push('/screen3', extra: 2024);
+                context.push('/stage3/screen3', extra: 2024);
               },
               child: const Text('Đi tới Screen 3 (Truyền Int)'),
             ),

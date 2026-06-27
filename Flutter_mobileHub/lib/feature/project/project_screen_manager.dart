@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/models/lesson.dart';
 import 'forecast_weather/ui/get_started.dart';
 import 'package:go_router/go_router.dart';
+import 'forecast_weather_v2/feature/main/home/home_screen.dart';
 
 final List<Lesson> listLessonInProject = [
   Lesson(
@@ -11,6 +12,12 @@ final List<Lesson> listLessonInProject = [
     screen: GetStarted(),
   ),
 
+  Lesson(
+    title: 'Forecast weather v2',
+    description: 'sau',
+    routePath: 'forecast-weather-v2', // 🌟 Đường dẫn con (KHÔNG có dấu / ở đầu)
+    screen: HomeScreen(),
+  ),
   // Thêm bài tập khác tương tự...
 ];
 

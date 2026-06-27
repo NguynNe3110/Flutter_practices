@@ -13,7 +13,7 @@ class SettingsScreen extends StatelessWidget {
         label: const Text('Logout'),
         onPressed: () {
           // Logout: Dùng context.go() để về lại login, xóa sạch stack của Home/Settings
-          context.go('/stage3/login');
+          context.go('/stage3/learn13_3');
         },
       ),
     );

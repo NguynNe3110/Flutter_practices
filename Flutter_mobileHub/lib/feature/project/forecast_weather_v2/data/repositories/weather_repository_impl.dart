@@ -1,3 +1,4 @@
+import '../../core/error/app_exception.dart';
 import '../../domain/entities/current_weather_entity.dart';
 import '../../domain/entities/forecast_weather_entity.dart';
 import '../../domain/repositories/weather_repository.dart';
@@ -17,8 +18,22 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Future<void> refreshCurrentWeather(String city) async {
-    final entity = await _remote.getCurrentWeather(city);
-    await _local.saveCurrentWeather(entity);
+    try {
+      final entity = await _remote.getCurrentWeather(city);
+      await _local.saveCurrentWeather(entity);
+    } on CacheException {
+      // Ném lại lỗi cache vì đây là lỗi nghiêm trọng
+      rethrow;
+    } on NetworkException {
+      // Bỏ qua lỗi network, cho phép app dùng dữ liệu cache cũ
+      // Không làm gì cả, app sẽ tiếp tục hiển thị dữ liệu cũ từ stream
+    } on ServerException {
+      // Ném lại lỗi server
+      rethrow;
+    } catch (e) {
+      // Wrap các lỗi không xác định thành UnknownException
+      throw UnknownException("Lỗi không xác định khi làm mới thời tiết: $e");
+    }
   }
 
   @override
@@ -28,7 +43,21 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Future<void> refreshForecastWeather(String city) async {
-    final entity = await _remote.getForecastWeather(city);
-    await _local.saveForecastWeather(city, entity);
+    try {
+      final entity = await _remote.getForecastWeather(city);
+      await _local.saveForecastWeather(city, entity);
+    } on CacheException {
+      // Ném lại lỗi cache vì đây là lỗi nghiêm trọng
+      rethrow;
+    } on NetworkException {
+      // Bỏ qua lỗi network, cho phép app dùng dữ liệu cache cũ
+      // Không làm gì cả, app sẽ tiếp tục hiển thị dữ liệu cũ từ stream
+    } on ServerException {
+      // Ném lại lỗi server
+      rethrow;
+    } catch (e) {
+      // Wrap các lỗi không xác định thành UnknownException
+      throw UnknownException("Lỗi không xác định khi làm mới dự báo: $e");
+    }
   }
 }

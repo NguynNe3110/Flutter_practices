@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobilehub/feature/stage3/learn13_3_go_route_bottom_navigate/login_screen.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/models/lesson.dart';
 import 'learn13_1_go_route_basic/screen1.dart';
@@ -7,8 +8,15 @@ final List<Lesson> listLessonInStage3 = [
   Lesson(
     title: 'Bài 13_1: go route basic',
     description: 'sau',
-    routePath: 'screen1',
+    routePath: 'learn13_1',
     screen: Screen1(),
+  ),
+
+  Lesson(
+    title: 'Bài 13_3: bottom_navigate',
+    description: 'sau',
+    routePath: 'learn13_3',
+    screen: LoginScreen(),
   ),
 ];
 

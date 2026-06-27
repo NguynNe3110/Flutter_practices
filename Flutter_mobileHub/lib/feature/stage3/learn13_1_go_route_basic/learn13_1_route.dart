@@ -8,7 +8,7 @@ import 'package:path/path.dart';
 import 'screen2.dart';
 
 class Learn13_1Route {
-  static const String screen1 = 'screen1';
+  static const String screen1 = 'learn13_1';
   static const String screen2 = 'screen2';
   static const String screen3 = 'screen3';
 

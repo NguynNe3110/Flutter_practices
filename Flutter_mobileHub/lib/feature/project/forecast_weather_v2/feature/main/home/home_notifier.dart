@@ -8,6 +8,7 @@ import '../../../domain/repositories/weather_repository.dart';
 import 'home_state.dart';
 
 class HomeNotifier extends Notifier<HomeState> {
+  final String debug = "IN HomeNotifier";
   late final WeatherRepository _repository;
 
   @override
@@ -20,7 +21,7 @@ class HomeNotifier extends Notifier<HomeState> {
   }
 
   Future<void> loadWeather(String city) async {
-    debugPrint('🏠 [HOME] Bắt đầu load thời tiết cho thành phố: $city');
+    debugPrint('[DEBUG] $debug Bắt đầu load thời tiết cho thành phố: $city');
 
     state = state.copyWith(
       selectedCity: city,
@@ -29,20 +30,20 @@ class HomeNotifier extends Notifier<HomeState> {
     );
 
     try {
-      debugPrint('🔄 [HOME] Gọi refreshCurrentWeather và refreshForecastWeather...');
+      debugPrint('[DEBUG] $debug Gọi refreshCurrentWeather và refreshForecastWeather...');
       await Future.wait([
         _repository.refreshCurrentWeather(city),
         _repository.refreshForecastWeather(city),
       ]);
-      debugPrint('✅ [HOME] Refresh thành công cả 2 API');
+      debugPrint('[DEBUG] $debug Refresh thành công cả 2 API');
 
-      debugPrint('📖 [HOME] Đọc dữ liệu từ cache...');
+      debugPrint('[DEBUG] $debug Đọc dữ liệu từ cache...');
       final currentWeather = await _repository.watchCurrentWeather(city).first;
       final forecastWeather = await _repository
           .watchForecastWeather(city)
           .first;
 
-      debugPrint('✅ [HOME] Đọc cache thành công: current=${currentWeather != null}, forecast=${forecastWeather != null}');
+      debugPrint('[DEBUG] $debug Đọc cache thành công: current=${currentWeather != null}, forecast=${forecastWeather != null}');
 
       state = state.copyWith(
         isLoading: false,
@@ -51,7 +52,7 @@ class HomeNotifier extends Notifier<HomeState> {
       );
     } catch (e, stackTrace) {
 
-      debugPrint('❌ [HOME] Lỗi khi load thời tiết: $e');
+      debugPrint('[DEBUG] $debug Lỗi khi load thời tiết: $e');
       debugPrint('Stack trace: $stackTrace');
 
       state = state.copyWith(isLoading: false, errorMessage: e.toString());

@@ -8,6 +8,8 @@ import '../local/datasources/weather_local_data_source.dart';
 import '../remote/datasources/weather_remote_data_source.dart';
 
 class WeatherRepositoryImpl implements WeatherRepository {
+  final String debug = "IN WeatherRepositoryImpl";
+
   final WeatherRemoteDataSource _remote;
   final WeatherLocalDataSource _local;
 
@@ -21,26 +23,26 @@ class WeatherRepositoryImpl implements WeatherRepository {
   @override
   Future<void> refreshCurrentWeather(String city) async {
     try {
-      debugPrint('🌐 [API] Bắt đầu gọi API thời tiết hiện tại cho $city');
+      debugPrint('[DEBUG] $debug[API] Bắt đầu gọi API thời tiết hiện tại cho $city');
       final entity = await _remote.getCurrentWeather(city);
-      debugPrint('✅ [API] Nhận dữ liệu thành công: ${entity.cityName}, ${entity.main.temp}°C');
+      debugPrint('[DEBUG] $debug[API] Nhận dữ liệu thành công: ${entity.cityName}, ${entity.main.temp}°C');
 
       await _local.saveCurrentWeather(entity);
-      debugPrint('💾 [LOCAL] Đã lưu dữ liệu vào cache');
+      debugPrint('[DEBUG] $debug [LOCAL] Đã lưu dữ liệu vào cache');
     } on CacheException catch(e){
       // Ném lại lỗi cache vì đây là lỗi nghiêm trọng
-      debugPrint('❌ [ERROR] CacheException: ${e.toString()}');
+      debugPrint('[DEBUG] $debug [ERROR] CacheException: ${e.toString()}');
       rethrow;
     } on NetworkException catch (e) {
       // Bỏ qua lỗi network, cho phép app dùng dữ liệu cache cũ
-      debugPrint('⚠️ [NETWORK] Lỗi kết nối: ${e.message} - App sẽ dùng dữ liệu cache cũ');
+      debugPrint('[DEBUG] $debug [NETWORK] Lỗi kết nối: ${e.message} - App sẽ dùng dữ liệu cache cũ');
     } on ServerException catch (e) {
       // Ném lại lỗi server
-      debugPrint('❌ [SERVER] ServerException: ${e.message}');
+      debugPrint('[DEBUG] $debug [SERVER] ServerException: ${e.message}');
       rethrow;
     } catch (e, stackTrace) {
       // Wrap các lỗi không xác định thành UnknownException
-      debugPrint('❌ [UNKNOWN] Lỗi không xác định: $e');
+      debugPrint('[DEBUG] $debug [UNKNOWN] Lỗi không xác định: $e');
       debugPrint('Stack trace: $stackTrace');
       throw UnknownException("Lỗi không xác định khi làm mới thời tiết: $e");
     }

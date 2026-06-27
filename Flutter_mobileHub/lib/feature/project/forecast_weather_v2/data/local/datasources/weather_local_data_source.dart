@@ -1,4 +1,5 @@
 // lib/feature/project/forecast_weather_v2/data/local/datasources/weather_local_datasource.dart
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobilehub/feature/project/forecast_weather_v2/data/local/database/drift/daos/weather_dao.dart';
 import 'package:flutter_mobilehub/feature/project/forecast_weather_v2/data/mappers/current_mapper.dart';
 import 'package:flutter_mobilehub/feature/project/forecast_weather_v2/data/mappers/forecast_mapper.dart';
@@ -17,8 +18,12 @@ class WeatherLocalDataSource {
     try {
       final tableCompanion = entity.toTableCompanion();
       await _weatherDao.upsertCurrentWeather(tableCompanion);
-    } catch (e) {
-      throw CacheException("Không thể lưu dữ liệu xuống DB: $e");
+      debugPrint('✅ [CACHE] Lưu thành công thời tiết hiện tại cho ${entity.cityName}');
+    } catch (e, stackTrace) {
+      debugPrint('❌ [CACHE] Lỗi khi lưu dữ liệu xuống DB: $e');
+      debugPrint('Stack trace: $stackTrace');
+      // Không ném CacheException nữa, chỉ log lỗi để app vẫn hoạt động
+      // Vì dữ liệu đã lấy được từ API, chỉ là không lưu được vào cache thôi
     }
   }
 
@@ -39,8 +44,11 @@ class WeatherLocalDataSource {
           .map((item) => item.toTableCompanion(city))
           .toList();
       await _weatherDao.upsertForecastItems(items);
-    } catch (e) {
-      throw CacheException("Không thể lưu forecast xuống DB: $e");
+      debugPrint('✅ [CACHE] Lưu thành công dự báo thời tiết cho $city (${entity.list.length} mục)');
+    } catch (e, stackTrace) {
+      debugPrint('❌ [CACHE] Lỗi khi lưu forecast xuống DB: $e');
+      debugPrint('Stack trace: $stackTrace');
+      // Không ném CacheException nữa, chỉ log lỗi để app vẫn hoạt động
     }
   }
 

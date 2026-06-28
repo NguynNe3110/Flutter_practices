@@ -23,9 +23,10 @@ class WeatherRepositoryImpl implements WeatherRepository {
   @override
   Future<void> refreshCurrentWeather(String city) async {
     try {
-      debugPrint('[DEBUG] $debug[API] Bắt đầu gọi API thời tiết hiện tại cho $city');
+      debugPrint('[DEBUG] $debug[API] city load : $city');
       final entity = await _remote.getCurrentWeather(city);
       debugPrint('[DEBUG] $debug[API] Nhận dữ liệu thành công: ${entity.cityName}, ${entity.main.temp}°C');
+      debugPrint('[DEBUG] $debug[API] -----------dữ liệu nhận về từ REMOTE DATA: $entity');
 
       await _local.saveCurrentWeather(entity);
       debugPrint('[DEBUG] $debug [LOCAL] Đã lưu dữ liệu vào cache');
@@ -50,6 +51,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Stream<ForecastWeatherEntity?> watchForecastWeather(String city) {
+    debugPrint('[DEBUG] $debug city name dduocwj truyen vao func watch forecastweather');
     return _local.watchForecastWeather(city);
   }
 
@@ -57,6 +59,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
   Future<void> refreshForecastWeather(String city) async {
     try {
       final entity = await _remote.getForecastWeather(city);
+      debugPrint('[DEBUG] $debug refresh data onlly forecastwather for $city data $entity');
       await _local.saveForecastWeather(city, entity);
     } on CacheException {
       // Ném lại lỗi cache vì đây là lỗi nghiêm trọng

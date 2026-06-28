@@ -9,7 +9,7 @@ class HomeState {
   final String? errorMessage;
 
   const HomeState({
-    this.selectedCity = 'Hanoi',
+    this.selectedCity = 'Ha Noi',
     this.isLoading = false,
     this.currentWeather,
     this.forecastWeather,

@@ -9,7 +9,7 @@ import 'package:flutter_mobilehub/feature/project/forecast_weather_v2/domain/ent
 import '../../../core/error/app_exception.dart';
 
 class WeatherLocalDataSource {
-  final String debug = "IN WeatherLocalDataSource";
+  final String debug = "IN WeatherLocalDataSource,";
 
   final WeatherDao _weatherDao;
 
@@ -19,22 +19,16 @@ class WeatherLocalDataSource {
   Future<void> saveCurrentWeather(CurrentWeatherEntity entity) async {
     try {
       final tableCompanion = entity.toTableCompanion();
+      debugPrint('[DEBUG] $debug data mapped to TABLECOMPANION: $tableCompanion');
+
       await _weatherDao.upsertCurrentWeather(tableCompanion);
-      debugPrint('[DEBUG] $debug [CACHE] Lưu thành công thời tiết hiện tại cho ${entity.cityName}');
+      debugPrint('[DEBUG] $debug [CACHE] save data current cache success for ${entity.cityName}');
     } catch (e, stackTrace) {
-      debugPrint('[DEBUG] $debug [CACHE] Lỗi khi lưu dữ liệu xuống DB: $e');
+      debugPrint('[DEBUG] $debug [CACHE] failed save to local: $e');
       debugPrint('Stack trace: $stackTrace');
       // Không ném CacheException nữa, chỉ log lỗi để app vẫn hoạt động
       // Vì dữ liệu đã lấy được từ API, chỉ là không lưu được vào cache thôi
     }
-  }
-
-  // 2. HÀM ĐỌC (STREAM): Gọi DAO watch -> Map TableData sang Entity -> Trả về Stream
-  Stream<CurrentWeatherEntity?> watchCurrentWeather(String city) {
-    return _weatherDao.watchCurrentWeather(city).map((tableData) {
-      if (tableData == null) return null;
-      return tableData.toEntity();
-    });
   }
 
   Future<void> saveForecastWeather(
@@ -46,7 +40,7 @@ class WeatherLocalDataSource {
           .map((item) => item.toTableCompanion(city))
           .toList();
       await _weatherDao.upsertForecastItems(items);
-      debugPrint('[DEBUG] $debug [CACHE] Lưu thành công dự báo thời tiết cho $city (${entity.list.length} mục)');
+      debugPrint('[DEBUG] $debug [CACHE] save data forecast for $city (${entity.list.length} mục)');
     } catch (e, stackTrace) {
       debugPrint('[DEBUG] $debug [CACHE] Lỗi khi lưu forecast xuống DB: $e');
       debugPrint('Stack trace: $stackTrace');
@@ -65,4 +59,13 @@ class WeatherLocalDataSource {
       );
     });
   }
+
+  // 2. HÀM ĐỌC (STREAM): Gọi DAO watch -> Map TableData sang Entity -> Trả về Stream
+  Stream<CurrentWeatherEntity?> watchCurrentWeather(String city) {
+    return _weatherDao.watchCurrentWeather(city).map((tableData) {
+      if (tableData == null) return null;
+      return tableData.toEntity();
+    });
+  }
+
 }

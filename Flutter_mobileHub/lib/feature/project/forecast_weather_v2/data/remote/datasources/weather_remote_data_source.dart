@@ -1,5 +1,6 @@
 // lib/feature/project/forecast_weather_v2/data/remote/datasources/weather_remote_datasource.dart
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobilehub/feature/project/forecast_weather_v2/data/mappers/current_mapper.dart';
 import 'package:flutter_mobilehub/feature/project/forecast_weather_v2/data/mappers/forecast_mapper.dart';
 import 'package:flutter_mobilehub/feature/project/forecast_weather_v2/data/remote/api/weather_api.dart';
@@ -11,18 +12,26 @@ import 'package:flutter_mobilehub/feature/project/forecast_weather_v2/domain/ent
 import '../../../core/error/app_exception.dart'; // Import Mapper
 
 class WeatherRemoteDataSource {
+  final String debug = "IN WeatherRemoteDataSource";
+
   final WeatherApi _weatherApi;
 
   WeatherRemoteDataSource(this._weatherApi);
 
-  // ✅ Trả về Entity để Repository không cần biết DTO
+  // mapper to entity here
   Future<CurrentWeatherEntity> getCurrentWeather(String city) async {
     try {
       final CurrentWeatherResponse responseDto = await _weatherApi
-          .getCurrentWeather(city);
+          .getCurrentWeather(city + ",VN");
+
+      // final stringToApi = city + ",VN";
+      debugPrint("[DEBUG] $debug func getCurrent, chuoi duong truyen sang cho api: ${city+',VN'}");
+
+      debugPrint("[DEBUG] $debug, data received $responseDto");
+
       return responseDto.toEntity();
     } on DioException catch (e) {
-      // ✅ SỬA LỖI: Ném Custom Exception thay vì String
+      // catch lỗi
       if (e.response?.statusCode == 404) {
         throw ServerException("Không tìm thấy thành phố: $city");
       } else {
@@ -36,7 +45,7 @@ class WeatherRemoteDataSource {
   Future<ForecastWeatherEntity> getForecastWeather(String city) async {
     try {
       final ForecastWeatherResponse responseDto = await _weatherApi
-          .getForecastWeather(city);
+          .getForecastWeather(city + ",VN");
       return responseDto.toEntity();
     } on DioException catch (e) {
       if (e.response?.statusCode == 404) {

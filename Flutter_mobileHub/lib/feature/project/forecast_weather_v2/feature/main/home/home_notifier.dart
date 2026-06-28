@@ -21,7 +21,7 @@ class HomeNotifier extends Notifier<HomeState> {
   }
 
   Future<void> loadWeather(String city) async {
-    debugPrint('[DEBUG] $debug Bắt đầu load thời tiết cho thành phố: $city');
+    debugPrint('[DEBUG] $debug city load data: $city');
 
     state = state.copyWith(
       selectedCity: city,
@@ -30,20 +30,20 @@ class HomeNotifier extends Notifier<HomeState> {
     );
 
     try {
-      debugPrint('[DEBUG] $debug Gọi refreshCurrentWeather và refreshForecastWeather...');
+      debugPrint('[DEBUG] $debug call refreshCurrentWeather, refreshForecastWeather...');
       await Future.wait([
         _repository.refreshCurrentWeather(city),
         _repository.refreshForecastWeather(city),
       ]);
-      debugPrint('[DEBUG] $debug Refresh thành công cả 2 API');
+      debugPrint('[DEBUG] $debug success call');
 
-      debugPrint('[DEBUG] $debug Đọc dữ liệu từ cache...');
+      debugPrint('[DEBUG] $debug read data from cache...');
       final currentWeather = await _repository.watchCurrentWeather(city).first;
       final forecastWeather = await _repository
           .watchForecastWeather(city)
           .first;
 
-      debugPrint('[DEBUG] $debug Đọc cache thành công: current=${currentWeather != null}, forecast=${forecastWeather != null}');
+      debugPrint('[DEBUG] $debug read data from cache success: current=${currentWeather != null}, forecast=${forecastWeather != null}');
 
       state = state.copyWith(
         isLoading: false,

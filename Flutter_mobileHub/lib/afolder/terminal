@@ -33,3 +33,9 @@ muốn thêm 1 thư viện cụ thể (tự động cài phiên bản) (vd
 các package đều phải dùng chung 1 build
 nếu cần nâng cấp, hãy luôn giữ chúng cùng 1 nhánh major. lệch sau giúp tự kéo tất cả lên cùng 1 phiên bản build
 > flutter pub upgrade --major-versions
+
+----
+nếu bị lỗi treo app thì chạy trong terminal
+> flutter clean
+flutter pub get
+flutter run

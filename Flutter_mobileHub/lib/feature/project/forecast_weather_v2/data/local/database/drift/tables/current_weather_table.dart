@@ -36,7 +36,7 @@ class CurrentWeatherTable extends Table {
   IntColumn get sunset => integer()();
 
   // ⏱️ LOGIC: Lưu timestamp để UI hiển thị "Cập nhật 5 phút trước"
-  IntColumn get lastUpdated => integer()();
+  // IntColumn get lastUpdated => integer()();
 
   @override
   Set<Column> get primaryKey => {cityName};

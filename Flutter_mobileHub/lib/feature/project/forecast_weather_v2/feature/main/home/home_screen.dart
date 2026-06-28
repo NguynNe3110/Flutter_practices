@@ -25,7 +25,7 @@ class HomeScreen extends ConsumerWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(14),
               child: Image.asset(
-                'assets/project_forecast_weather/profile.png',
+                'assets/project_forecast_weather/flagVN1x1.png',
                 width: 42,
                 height: 42,
                 fit: BoxFit.cover,
@@ -37,12 +37,19 @@ class HomeScreen extends ConsumerWidget {
                 child: DropdownButton<String>(
                   value: state.selectedCity,
                   isExpanded: true,
+                  // Không set dropdownWidth - nó sẽ tự adjust
                   icon: const Icon(Icons.keyboard_arrow_down_rounded),
                   items: _cities
-                      .map(
-                        (city) =>
-                            DropdownMenuItem(value: city, child: Text(city)),
-                      )
+                      .map((city) => DropdownMenuItem(
+                    value: city,
+                    child: SizedBox(
+                      width: 150, // Giới hạn width tối đa cho mỗi item
+                      child: Text(
+                        city,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ))
                       .toList(),
                   onChanged: (value) {
                     if (value == null) return;
@@ -61,16 +68,24 @@ class HomeScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
           children: [
             if (state.errorMessage != null) ...[
+
               _ErrorBanner(message: state.errorMessage!),
               const SizedBox(height: 16),
             ],
+
             _CurrentWeatherHeader(state: state),
             const SizedBox(height: 24),
+
+            //tab iinfor
             _MetricsRow(state: state),
             const SizedBox(height: 24),
+
             _SectionTitle(
               title: 'Forecast',
-              subtitle: '3-hour blocks from OpenWeather',
+              subtitle: 'Dự báo 5 ngày',
+              onTap: () {
+                //todo code
+              },
             ),
             const SizedBox(height: 12),
             SizedBox(
@@ -109,7 +124,7 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-const List<String> _cities = ['Hanoi', 'Nam Dinh', 'Da Nang','Hai Phong', 'Can Tho', 'Thai Nguyen', 'Ho Chi Minh City', 'Tokyo'];
+const List<String> _cities = ['Ha Noi', 'Nam Dinh', 'Da Nang','Haiphong', 'Can Tho','Nha Trang','Ha Long', 'Thai Nguyen', 'Ho Chi Minh City', 'Vung Tau', 'Hue'];
 
 String _weatherAssetFor(String conditionName, {int clouds = 0}) {
   final normalized = conditionName.toLowerCase();
@@ -140,6 +155,8 @@ String _weatherAssetFor(String conditionName, {int clouds = 0}) {
 }
 
 class _CurrentWeatherHeader extends StatelessWidget {
+  final String debug = 'in HOMESCREEN for Current Weather Header';
+
   const _CurrentWeatherHeader({required this.state});
 
   final HomeState state;
@@ -147,13 +164,15 @@ class _CurrentWeatherHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentWeather = state.currentWeather;
+    debugPrint("[DEBUG] $debug data state is $currentWeather");
+
     final weather = currentWeather?.conditions.isNotEmpty == true
         ? currentWeather!.conditions.first
         : null;
 
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xff1E2A57),
+        color: const Color(0xffafd6f8),
         borderRadius: BorderRadius.circular(28),
       ),
       padding: const EdgeInsets.all(20),
@@ -167,42 +186,71 @@ class _CurrentWeatherHeader extends StatelessWidget {
                   weather?.conditionName ?? '',
                   clouds: currentWeather?.clouds.all ?? 0,
                 ),
-                width: 64,
-                height: 64,
+                width: 70,
+                height: 70,
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      currentWeather?.cityName ?? state.selectedCity,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                currentWeather?.cityName ?? state.selectedCity,
+                                style: const TextStyle(
+                                  color: const Color(0xff000000),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                weather?.description ?? 'Loading weather data',
+                                style: TextStyle(
+                                  color: const Color(0xff000000).withOpacity(.75),
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          currentWeather == null
+                              ? '--'
+                              : '${currentWeather.main.temp.round()}°',
+                          style: const TextStyle(
+                            color: const Color(0xff71abec),
+                            fontSize: 42,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      weather?.description ?? 'Loading weather data',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(.75),
-                        fontSize: 14,
-                      ),
-                    ),
+                    // Expanded(
+                    //   child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            currentWeather == null
+                            ? 'Feels like --'
+                            :
+                            'Feels like ${currentWeather.main.feelsLike.round()}°',
+
+                            style: TextStyle(
+                              color: const Color(0xff1587ff).withOpacity(.75),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      )
+                    // )
                   ],
-                ),
-              ),
-              Text(
-                currentWeather == null
-                    ? '--'
-                    : '${currentWeather.main.temp.round()}°',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold,
-                ),
+                )
               ),
             ],
           ),
@@ -216,13 +264,16 @@ class _CurrentWeatherHeader extends StatelessWidget {
                     ),
                   ),
             style: TextStyle(
-              color: Colors.white.withOpacity(.75),
+              color: const Color(0xff1587ff).withOpacity(.75),
               fontSize: 14,
             ),
           ),
           if (state.isLoading) ...[
             const SizedBox(height: 12),
-            const LinearProgressIndicator(minHeight: 2),
+            const LinearProgressIndicator(
+              minHeight: 2,
+              color: const Color(0xff007eff),
+            ),
           ],
         ],
       ),
@@ -231,6 +282,7 @@ class _CurrentWeatherHeader extends StatelessWidget {
 }
 
 class _MetricsRow extends StatelessWidget {
+  final String debug = 'in HOMESCREEN for Metricrow';
   const _MetricsRow({required this.state});
 
   final HomeState state;
@@ -238,37 +290,78 @@ class _MetricsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentWeather = state.currentWeather;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        weatherItem(
-          text: 'Wind Speed',
-          value: currentWeather?.wind.speed.round() ?? 0,
-          unit: 'm/s',
-          imageUrl: 'assets/project_forecast_weather/windspeed.png',
-        ),
-        weatherItem(
-          text: 'Humidity',
-          value: currentWeather?.main.humidity ?? 0,
-          unit: '%',
-          imageUrl: 'assets/project_forecast_weather/humidity.png',
-        ),
-        weatherItem(
-          text: 'Max Temp',
-          value: currentWeather?.main.tempMax.round() ?? 0,
-          unit: '°',
-          imageUrl: 'assets/project_forecast_weather/max-temp.png',
-        ),
-      ],
-    );
+    final visibileConvert = currentWeather?.visibility.round() ?? 0;
+    final vis = (visibileConvert / 1000).toInt();
+
+    debugPrint("[DEBUG] $debug data state is $currentWeather");
+
+    return
+      Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              weatherItem(
+                text: 'Wind Speed',
+                value: currentWeather?.wind.speed.round() ?? 0,
+                unit: 'm/s',
+                imageUrl: 'assets/project_forecast_weather/windspeed.png',
+              ),
+              weatherItem(
+                text: 'Min Temp',
+                value: currentWeather?.main.tempMin.round() ?? 0,
+                unit: '°',
+                imageUrl: 'assets/project_forecast_weather/max-temp.png',
+              ),
+              weatherItem(
+                text: 'Max Temp',
+                value: currentWeather?.main.tempMax.round() ?? 0,
+                unit: '°',
+                imageUrl: 'assets/project_forecast_weather/max-temp.png',
+              ),
+            ],
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              weatherItem(
+                text: 'Humidity',
+                value: currentWeather?.main.humidity ?? 0,
+                unit: '%',
+                imageUrl: 'assets/project_forecast_weather/humidity.png',
+              ),
+              weatherItem(
+                text: 'Pressure',
+                value: currentWeather?.main.pressure.round() ?? 0,
+                unit: 'hPa',
+                imageUrl: 'assets/project_forecast_weather/pressure.png',
+              ),
+
+              weatherItem(
+                text: 'Visibility',
+                value: vis,
+                unit: 'Km',
+                imageUrl: 'assets/project_forecast_weather/visibility.png',
+              ),
+            ],
+          ),
+        ],
+      );
+
   }
 }
 
 class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.title, required this.subtitle});
+  const _SectionTitle({
+    required this.title,
+    required this.subtitle,
+    this.onTap
+  });
 
   final String title;
   final String subtitle;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -279,9 +372,12 @@ class _SectionTitle extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
-        Text(
-          subtitle,
-          style: TextStyle(fontSize: 13, color: Colors.black.withOpacity(.55)),
+        GestureDetector(
+          onTap: onTap,
+          child: Text(
+            subtitle,
+            style: TextStyle(fontSize: 20, color: Colors.blue.withOpacity(.75), fontWeight: FontWeight.w700),
+          ),
         ),
       ],
     );
